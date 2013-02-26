@@ -1,3 +1,11 @@
+"Set colorscheme 
+"{{{
+if !has("gui_running")
+	set t_Co=256
+endif
+set background=dark
+colorscheme peaksea
+"}}}
 "User Setting Sequence
 "{{{
 set nocompatible
@@ -86,7 +94,12 @@ endif
 call neobundle#rc(expand('~/.vim/bundle/'))
 " Let NeoBundle manage NeoBundle
 " Note: You don't set neobundle setting in .gvimrc!
-NeoBundle 'Shougo/vimproc'
+NeoBundle 'Shougo/vimproc', {
+  \'build':{
+    \'unix':'make -f make_unix.mak',
+    \'mac':'make -f make_mac.mak',
+  \},
+\}
 NeoBundle 'Shougo/neosnippet'
 NeoBundle 'Shougo/vimshell'
 NeoBundle 'Shougo/unite.vim'

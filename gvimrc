@@ -1,7 +1,14 @@
-set showtabline=2	" タブを常に表示
-set imdisable	" IMを無効化
-set transparency=7	" 透明度を指定
+set showtabline=2
+set imdisable
+if has("win32"||"win64")
+  set transparency=10
+endif
 set antialias
-set guifont=Monaco:h12
+if has("mac")
+  set guifont=Monaco:h12
+endif
+if has("unix")
+  set guifont=Meslo\ LG\ S:h11
+endif
 set lines=40
 set columns=115
