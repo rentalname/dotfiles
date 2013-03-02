@@ -26,7 +26,9 @@ set shiftwidth=4
 set noexpandtab
 set softtabstop=0
 " change map leader character
-let mapleader = "_"
+if has('gui_macvim')
+  let mapleader = "_"
+endif
 " 保存時に行末の空白を除去する
 "autocmd BufWritePre * :%s/¥s¥+$//ge
 " カラースキームを設定する
