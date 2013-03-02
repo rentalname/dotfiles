@@ -1,7 +1,7 @@
 "Set colorscheme 
 "{{{
 if !has("gui_running")
-	set t_Co=256
+  set t_Co=256
 endif
 set background=dark
 colorscheme peaksea
@@ -93,7 +93,7 @@ nnoremap <silent><Space>s    :<C-u>update<CR>
 set nocompatible               " Be iMproved
 filetype off                   " Required!
 if has('vim_starting')
-	set runtimepath+=~/.vim/bundle/neobundle.vim/
+  set runtimepath+=~/.vim/bundle/neobundle.vim/
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
@@ -134,9 +134,10 @@ NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'tpope/vim-fugitive'
+NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tyru/open-browser.vim'
-NeoBundle 'ujihisa/unite-colorscheme'
+NvoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 " vim-scripts repos
 NeoBundle 'L9'
@@ -197,10 +198,10 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-
+autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 " Enable heavy omni completion, which require computational power and may stall the vim. 
 if !exists('g:neocomplcache_omni_patterns')
-	let g:neocomplcache_omni_patterns = {}
+  let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
@@ -238,10 +239,10 @@ nmap <F5> :NERDTree<CR>
 "{{{
 let g:quickrun_config = {}
 let g:quickrun_config['markdown'] = {
-	\ 'type': 'markdown/pandoc',
-	\ 'outputter': 'browser',
-	\ 'cmdopt': '-s'
-	\}
+  \ 'type': 'markdown/pandoc',
+  \ 'outputter': 'browser',
+  \ 'cmdopt': '-s'
+\}
 "}}}
 
 "vimshell
