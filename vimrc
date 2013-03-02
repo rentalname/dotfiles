@@ -25,6 +25,9 @@ set tabstop=4
 set shiftwidth=4
 set noexpandtab
 set softtabstop=0
+"制御コードを表示する
+set list
+set listchars=tab:»-,trail:-,eol:↲,extends:»,precedes:«,nbsp:%
 " change map leader character
 if has('gui_macvim')
   let mapleader = "_"
