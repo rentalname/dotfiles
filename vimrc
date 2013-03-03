@@ -1,3 +1,5 @@
+"set fileformat
+set fileformats=mac,unix,dos
 "Set colorscheme 
 "{{{
 if !has("gui_running")
@@ -6,6 +8,10 @@ endif
 set background=dark
 colorscheme peaksea
 "}}}
+"set transparency
+if has('kaoriya')
+  set transparency=15
+endif
 "User Setting Sequence
 "{{{
 set nocompatible
@@ -37,25 +43,25 @@ endif
 " カラースキームを設定する
 let scheme = 'peaksea'
 augroup gui_colors_cheme
-	autocmd!
-	execute 'autocmd GUIEnter * colorscheme' scheme
-	set background=dark
+  autocmd!
+  execute 'autocmd GUIEnter * colorscheme' scheme
+  set background=dark
 augroup END
 execute 'colorscheme' scheme
 "}}}
 
 augroup RubyOnRails
-	au!
-	au FileType ruby :set nowrap tabstop=2 tw=0 sw=2
-	au FileType eruby :set nowrap tabstop=2 tw=2 sw=2
-	au BufNewFile *.html.erb set filetype=eruby fenc=euc-jp
-	au BufNewFile *.rb set ft=ruby fenc=euc-jp
-	au BufNewFile,BufRead *.erb set ft=eruby.html fenc=utf-8
-	au BufNewFile,BufRead *./app/*/*.¥.rb set ft=ruby fenc=utf-8
+  au!
+  au FileType ruby :set nowrap tabstop=2 tw=0 sw=2
+  au FileType eruby :set nowrap tabstop=2 tw=2 sw=2
+  au BufNewFile *.html.erb set filetype=eruby fenc=euc-jp
+  au BufNewFile *.rb set ft=ruby fenc=euc-jp
+  au BufNewFile,BufRead *.erb set ft=eruby.html fenc=utf-8
+  au BufNewFile,BufRead *./app/*/*.¥.rb set ft=ruby fenc=utf-8
 augroup END
 
 if !has('gui_running')
-	autocmd RubyOnRails
+  autocmd RubyOnRails
 endif
 
 " User Key Mapping
@@ -137,7 +143,7 @@ NeoBundle 'tpope/vim-fugitive'
 NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-rails'
 NeoBundle 'tyru/open-browser.vim'
-NvoBundle 'ujihisa/unite-colorscheme'
+NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 " vim-scripts repos
 NeoBundle 'L9'
@@ -168,20 +174,20 @@ let g:neocomplcache_enable_camel_case_completion = 1
 " Use underscore completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
-let g:neocomplcache_min_syntax_length = 3
+let g:neocomplcache_min_syntax_length = 2
 " buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define file-type dependent dictionaries.
 let g:neocomplcache_dictionary_filetype_lists = {
-			\ 'default' : '',
-			\ 'vimshell' : $HOME.'/.vimshell_hist',
-			\ 'scheme' : $HOME.'/.gosh_completions'
-			\ }
+  \ 'default' : '',
+  \ 'vimshell' : $HOME.'/.vimshell_hist',
+  \ 'scheme' : $HOME.'/.gosh_completions'
+\ }
 
 " Define keyword, for minor languages
 if !exists('g:neocomplcache_keyword_patterns')
-	let g:neocomplcache_keyword_patterns = {}
+  let g:neocomplcache_keyword_patterns = {}
 endif
 let g:neocomplcache_ke_auto_select = 1
 
@@ -199,12 +205,12 @@ autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 " Enable heavy omni completion, which require computational power and may stall the vim. 
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-"autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
 let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
@@ -273,4 +279,12 @@ nmap <Space>bo :OperaReloadStart<CR>
 nmap <Space>bO :OperaReloadStop<CR>
 nmap <Space>ba :AllBrowserReloadStart<CR>
 nmap <Space>bA :AllBrowserReloadStop<CR>
+"}}}
+
+"zen-coding
+"{{{
+let g:user_zen_settings={
+  \'lang' : 'ja',
+  \'indentation' : "\t",
+  \}
 "}}}
