@@ -14,6 +14,7 @@ if has('kaoriya')
 endif
 "User Setting Sequence
 "{{{
+set wrapmargin=115
 set nocompatible
 set number
 set statusline+=[%F]
@@ -79,8 +80,8 @@ nnoremap <silent> <Space>ev  :<C-u>edit $MYVIMRC<CR>
 nnoremap <silent> <Space>eg  :<C-u>edit $MYGVIMRC<CR>
 "Load .gvimrc afterv.vimrc edited at GVim.
 " Set augroup.
-"nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
-"nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
+nnoremap <silent> <Space>rv :<C-u>source $MYVIMRC \| if has('gui_running') \| source $MYGVIMRC \| endif <CR>
+nnoremap <silent> <Space>rg :<C-u>source $MYGVIMRC<CR>
 " ---  ファイラーを起動 ---
 nnoremap <silent><Space>j    :Explore<CR>
 " 前のバッファ、次のバッファ、バッファの削除、バッファのリスト
