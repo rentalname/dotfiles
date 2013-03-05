@@ -155,7 +155,6 @@ NeoBundle 'git://git.wincent.com/command-t.git'
 "NeoBundle 'http://svn.macports.org/repository/macports/contrib/mpvim/'
 " gist repos
 "'git://gist.github.com/187578.git', {'directory': 'h2u_white'}
-" ...
 
 filetype plugin indent on     " Required!
 " Installation check.
