@@ -10,11 +10,14 @@ colorscheme peaksea
 "}}}
 "set transparency
 if has('kaoriya')
-  set transparency=15
+  set transparency=20
 endif
 "User Setting Sequence
 "{{{
-set wrapmargin=115
+set wrap
+set wrapmargin=2
+set textwidth=118
+set whichwrap
 set nocompatible
 set number
 set statusline+=[%F]
@@ -287,4 +290,11 @@ let g:user_zen_settings={
   \'lang' : 'ja',
   \'indentation' : "\t",
   \}
+"}}}
+
+"set vim-rails
+"{{{
+"  noremap <C-1> RDmodel<CR>
+"  noremap <C-2> REcontroller<CR>
+"  noremap <C-3> RDview<CR>
 "}}}
