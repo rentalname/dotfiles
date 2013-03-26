@@ -2,7 +2,7 @@
 set nocompatible
 "set fileformat
 set fileformats=mac,unix,dos
-"Set colorscheme 
+"Set colorscheme
 "{{{
 if !has("gui_running")
   set t_Co=256
@@ -135,7 +135,7 @@ NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundlE 'honza/snipmate-snippets'
+NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'kien/ctrlp.vim'
@@ -184,7 +184,7 @@ let g:neocomplcache_enable_camel_case_completion = 1
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
 let g:neocomplcache_min_syntax_length = 2
-" buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder 
+" buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 
 " Define file-type dependent dictionaries.
@@ -215,7 +215,7 @@ autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-" Enable heavy omni completion, which require computational power and may stall the vim. 
+" Enable heavy omni completion, which require computational power and may stall the vim.
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
@@ -470,7 +470,7 @@ xmap ,# ,1
 xmap ,,# ,,1
 xmap # ,#
 
-" Decomment 
+" Decomment
 function! s:decomment_dwim() range
   if !has_key(g:commentout_schemes, &l:filetype)
     echoerr "Comment-out scheme not registered for: " . &l:filetype
