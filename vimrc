@@ -22,7 +22,7 @@ set number
 set clipboard+=unnamed
 set wrap
 set textwidth=118
-set whichwrap=b,s,<,>,[,],~
+set whichwrap=b,s,h,l,<,>,[,]
 set statusline+=[%F]
 set statusline+=[%Y]
 set statusline+=[%{&fileencoding}]
@@ -65,7 +65,7 @@ augroup RubyOnRails
   au BufNewFile *.html.erb set filetype=eruby fenc=euc-jp
   au BufNewFile *.rb set ft=ruby fenc=euc-jp
   au BufNewFile,BufRead *.erb set ft=eruby.html fenc=utf-8
-  au BufNewFile,BufRead *./app/*/*.¥.rb set ft=ruby fenc=utf-8
+  au BufNewFile,BufRead *./app/*/*.¥.rb set ft=ruby.rails fenc=utf-8
 augroup END
 
 if !has('gui_running')
@@ -131,7 +131,7 @@ NeoBundle 'Shougo/vimfiler'
 "My Bundles here:
 " Original repos on github
 "NeoBundle 'taichouchou2/surround.vim'
-"NeoBundle 'vim-ruby/vim-ruby'
+NeoBundle 'vim-ruby/vim-ruby'
 NeoBundle 'Lokaltog/vim-easymotion'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'hail2u/vim-css3-syntax'
@@ -144,6 +144,12 @@ NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 NeoBundle 'scrooloose/nerdtree'
+NeoBundle 'taichouchou2/alpaca_complete', {
+      \ 'depends' : [ 'tpope/vim-rails', 'Shougo/neocomplcache'],
+      \ 'build' : {
+      \     'mac' : 'gem install alpaca_complete',
+      \     'unix' : 'gem install alpaca_complete',
+      \}}
 NeoBundle 'taichouchou2/html5.vim'
 NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'tell-k/vim-browsereload-mac'
@@ -186,7 +192,9 @@ let g:neocomplcache_enable_underbar_completion = 1
 let g:neocomplcache_min_syntax_length = 2
 " buffer file name pattern that locks neocomplcache. e.g. ku.vim or fuzzyfinder
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-
+" Rails filetype setting
+autocmd BufEnter * if exists("b:rails_root") | NeoComplCacheSetFileType ruby.rails | endif
+autocmd BufEnter * if (expand("%") =~ "_spec\.rb$") || (expand("%") =~ "^spec.*\.rb$") | NeoComplCacheSetFileType ruby.rspec | endif
 " Define file-type dependent dictionaries.
 let g:neocomplcache_dictionary_filetype_lists = {
   \ 'default' : '',
@@ -536,4 +544,10 @@ xnoremap <silent> <Leader>/ :call <SID>decomment_block()<CR>
 " dwim
 xnoremap <silent> ,0 :call <SID>decomment_dwim()<CR>
 xmap / ,0
+"}}}
+
+"vim-coffee-script
+"{{{
+au BufRead,BufNewFile,BufReadPre *.coffee set filetype=coffee
+autocmd FileType coffee setlocal shiftwidth=2 softtabstop=2 tabstop=2 expandtab
 "}}}
