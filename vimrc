@@ -1,4 +1,3 @@
-"set vim nocompatible
 set nocompatible
 "set fileformat
 set fileformats=unix,dos,mac
@@ -21,9 +20,8 @@ set nobackup
 set noswapfile
 set number
 set clipboard+=unnamed
-set wrap
 set textwidth=118
-set whichwrap=b,s,h,l,<,>,[,]
+set whichwrap=b,s,h,s,<,>,[,]
 set statusline+=✘╹◡╹✘
 set statusline+=[%F]
 set statusline+=[%Y]
@@ -65,10 +63,9 @@ augroup RubyOnRails
   au!
   au FileType ruby :set nowrap tabstop=2 tw=0 sw=2
   au FileType eruby :set nowrap tabstop=2 tw=2 sw=2
-  au BufNewFile *.html.erb set filetype=eruby fenc=euc-jp
-  au BufNewFile *.rb set ft=ruby fenc=euc-jp
+  au BufNewFile *.html.erb set filetype=eruby fenc=utf-8
+  au BufNewFile *.rb set ft=ruby fenc=utf-8
   au BufNewFile,BufRead *.erb set ft=eruby.html fenc=utf-8
-  au BufNewFile,BufRead *./app/*/*.¥.rb set ft=ruby.rails fenc=utf-8
 augroup END
 
 if !has('gui_running')
@@ -114,33 +111,30 @@ if has('vim_starting')
 endif
 
 call neobundle#rc(expand('~/.vim/bundle/'))
-" Let NeoBundle manage NeoBundle
-" Note: You don't set neobundle setting in .gvimrc!
+" After install, turn shell $VIM/vimfiles/bundle/vimproc, (n,g)make -f your_machines_makefile
 NeoBundle 'Shougo/vimproc', {
   \'build':{
     \'unix':'make -f make_unix.mak',
     \'mac':'make -f make_mac.mak',
   \},
 \}
-NeoBundle 'Shougo/neosnippet'
-NeoBundle 'Shougo/vimshell'
-NeoBundle 'Shougo/unite.vim'
-NeoBundle 'Shougo/neocomplcache'
 NeoBundle 'Shougo/neobundle.vim'
+NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
+NeoBundle 'Shougo/vimshell'
 "NeoBundle 'Shougo/neocomplecache-rsense'
-" Recommended to install
-" After install, turn shell $VIM/vimfiles/bundle/vimproc, (n,g)make -f your_machines_makefile
-"My Bundles here:
 " Original repos on github
 "NeoBundle 'taichouchou2/surround.vim'
 NeoBundle 'Lokaltog/vim-easymotion'
+NeoBundle 'lunaru/vim-less'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'hail2u/vim-css3-syntax'
-NeoBundle 'honza/snipmate-snippets'
+"NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'kien/ctrlp.vim'
@@ -150,6 +144,8 @@ NeoBundle 'mattn/zencoding-vim'
 NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
+NeoBundle 'slim-template/vim-slim'
+NeoBundle 'szw/vim-tags'
 NeoBundle 'taichouchou2/alpaca_complete', {
       \ 'depends' : [ 'tpope/vim-rails', 'Shougo/neocomplcache'],
       \ 'build' : {
@@ -161,9 +157,11 @@ NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
+"NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tpope/vim-fugitive'
-NeoBundle 'tpope/vim-haml'
+"NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-rails'
+"NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
@@ -196,12 +194,13 @@ let g:neocomplcache_enable_camel_case_completion = 1
 " Use underscore completion.
 let g:neocomplcache_enable_underbar_completion = 1
 " Sets minimum char length of syntax keyword.
-let g:neocomplcache_min_syntax_length = 2
+let g:neocomplcache_min_syntax_length = 3
 " buffer file name pattern tvat locks neocomplcache. e.g. ku.vim or fuzzyfinder
 let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
 " Rails filetype setting
 autocmd BufEnter * if exists("b:rails_root") | NeoComplCacheSetFileType ruby.rails | endif
 autocmd BufEnter * if (expand("%") =~ "\.html\.erb$") | NeoComplCacheSetFileType ruby.eruby.rails.html | endif
+autocmd BufEnter * if (expand("%") =~ "\.text\.erb$") | NeoComplCacheSetFileType ruby.eruby.rails.html | endif
 "autocmd BufEnter * if (expand("%") =~ "\.(scss|sass|css)$") | NeoComplCacheSetFileType css.scss | endif
 autocmd BufEnter * if (expand("%") =~ "_spec\.rb$") || (expand("%") =~ "^spec.*\.rb$") | NeoComplCacheSetFileType ruby.rspec | endif
 " Define file-type dependent dictionaries.
@@ -232,17 +231,12 @@ autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-"autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 " Enable heavy omni completion, which require computational power and may stall the vim.
 if !exists('g:neocomplcache_omni_patterns')
   let g:neocomplcache_omni_patterns = {}
 endif
 let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
 let g:neocomplcache_omni_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\|[@!]'
-"let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-"let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-"let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
 " }}}
 
 "NeoSnipet
@@ -261,7 +255,7 @@ if has('conceal')
 endif
 
 " Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+let g:neosnippet#snippets_directory='~/.vim/snippets'
 "}}}
 
 "NERDTree
@@ -298,6 +292,19 @@ let g:quickrun_config['markdown'] = {
   \ 'cmdopt': '-s'
 \}
 let g:quickrun_config['scss.css']={ 'type': 'scss'}
+let g:quickrun_config['coffee'] = {'command' : 'coffee', 'exec' : ['%c -cbp %s']}
+let g:quickrun_config._ = {'runner' : 'vimproc'}
+
+" rspecを実行するための設定を定義する
+" %cはcommandに設定した値に置換される
+" %oはcmdoptに設定した値に置換される
+" %sはソースファイル名に置換される
+let g:quickrun_config['ruby.rspec'] = {
+  \ 'type': 'rspec/bundle',
+  \ 'command': 'rspec',
+  \ 'outputter': 'buffered:target=buffer',
+  \ 'exec': 'bundle exec %c %o --color --drb --tty %s'
+  \}
 "}}}
 
 "vimshell
@@ -360,10 +367,18 @@ inoremap <F2> <Esc><F2>
 nnoremap <F3> :Unite rails/controller<CR>
 inoremap <F3> <Esc><F3>
 nnoremap <F4> :Unite rails/helper<CR>
-inoremap <F4> <Esc><F3>
+inoremap <F4> <Esc><F4>
 nnoremap <F5> :Unite rails/stylesheet<CR>
-inoremap <F5> <Esc><F3>
+inoremap <F5> <Esc><F5>
 nnoremap <F6> :Unite rails/javascript<CR>
-inoremap <F6> <Esc><F3>
+inoremap <F6> <Esc><F6>
+nnoremap <F7> :Unite rails/spec
+inoremap <F7> <Esc><F7>
 nnoremap <F9> :Unite rails/route<CR>
+"}}}
+
+"Ctags
+"{{{
+let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
+let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
 "}}}
