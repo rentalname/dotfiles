@@ -1,14 +1,17 @@
+"set fileformat
+set fileformats=mac,unix,dos
+
 set showtabline=2
-set imdisable
-if has("win32"||"win64")
-  set transparency=10
+set noimdisableactivate
+if has('kaoriya')
+  set transparency=25
 endif
-set antialias
 if has("mac")
-  set guifont=Monaco:h12
-endif
-if has("unix")
+  set guifont=Menlo\ Regular:h13
+  set guifontwide=Osaka−等幅:h12
+elseif has("unix")
   set guifont=Meslo\ LG\ S:h11
 endif
-set lines=40
-set columns=115
+set antialias
+set lines=50
+set columns=145

@@ -2,6 +2,7 @@ set nocompatible
 "set fileformat
 set fileformats=unix,dos,mac
 set fileformat=unix
+
 "Set colorscheme
 "{{{
 if !has("gui_running")
@@ -10,10 +11,14 @@ endif
 set background=dark
 colorscheme peaksea
 "}}}
+
 "set transparency
+"{{{
 if has('kaoriya')
   set transparency=20
 endif
+"}}}
+
 "User Setting Sequence
 "{{{
 set nobackup
@@ -51,35 +56,33 @@ endif
 autocmd BufWritePre * :%s/\s\+$//ge
 " カラースキームを設定する
 let scheme = 'peaksea'
-augroup gui_colors_cheme
-  autocmd!
+augroup gui_color_scheme
+  au!
   execute 'autocmd GUIEnter * colorscheme' scheme
   set background=dark
 augroup END
-execute 'colorscheme' scheme
-"}}}
-
+" Rails file association
 augroup RubyOnRails
   au!
   au FileType ruby :set nowrap tabstop=2 tw=0 sw=2
+  au BufNewFile *.rb set ft=ruby fenc=utf-8
   au FileType eruby :set nowrap tabstop=2 tw=2 sw=2
   au BufNewFile *.html.erb set filetype=eruby fenc=utf-8
-  au BufNewFile *.rb set ft=ruby fenc=utf-8
   au BufNewFile,BufRead *.erb set ft=eruby.html fenc=utf-8
 augroup END
-
 if !has('gui_running')
   autocmd RubyOnRails
 endif
+"}}}
 
 " User Key Mapping
 "{{{
-nnoremap <C-h> <C-w>h
-nnoremap <C-l> <C-w>l
-nnoremap <C-j> <C-w>j
-nnoremap <C-k> <C-w>k
-inoremap <C-UP> <C-w>h
-nnoremap <C-UP> <C-w>h
+nnoremap <C-h>    <C-w>h
+nnoremap <C-l>    <C-w>l
+nnoremap <C-j>    <C-w>j
+nnoremap <C-k>    <C-w>k
+inoremap <C-UP>   <C-w>h
+nnoremap <C-UP>   <C-w>h
 inoremap <C-DOWN> <C-w>l
 nnoremap <C-DOWN> <C-w>l
 nmap <Esc><Esc> :nohlsearch<CR>
@@ -104,7 +107,6 @@ nnoremap <silent><Space>s    :<C-u>update<CR>
 
 "NeoBundle
 "{{{
-set nocompatible               " Be iMproved
 filetype off                   " Required!
 if has('vim_starting')
   set runtimepath+=~/.vim/bundle/neobundle.vim/
@@ -119,53 +121,53 @@ NeoBundle 'Shougo/vimproc', {
   \},
 \}
 NeoBundle 'Shougo/neobundle.vim'
-NeoBundle 'Shougo/neocomplcache'
+NeoBundle 'Shougo/neocomplete.vim'
 NeoBundle 'Shougo/neosnippet'
+NeoBundle 'Shougo/neosnippet-snippets'
 NeoBundle 'Shougo/unite.vim'
 NeoBundle 'Shougo/vimfiler'
 NeoBundle 'Shougo/vimshell'
-"NeoBundle 'Shougo/neocomplecache-rsense'
 " Original repos on github
-"NeoBundle 'taichouchou2/surround.vim'
+"NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'Lokaltog/vim-easymotion'
-NeoBundle 'lunaru/vim-less'
+NeoBundle 'alpaca-tc/html5.vim'
 NeoBundle 'basyura/unite-rails'
 NeoBundle 'cakebaker/scss-syntax.vim'
 NeoBundle 'h1mesuke/unite-outline'
 NeoBundle 'h1mesuke/vim-alignta'
 NeoBundle 'hail2u/vim-css3-syntax'
-"NeoBundle 'honza/snipmate-snippets'
 NeoBundle 'kana/vim-smartinput'
 NeoBundle 'kchmck/vim-coffee-script'
 NeoBundle 'kien/ctrlp.vim'
 NeoBundle 'kmnk/vim-unite-giti'
+NeoBundle 'lunaru/vim-less'
 NeoBundle 'mattn/webapi-vim'
 NeoBundle 'mattn/zencoding-vim'
+NeoBundle 'rcmdnk/vim-markdown'
 NeoBundle 'rstacruz/sparkup', {'rtp': 'vim/'}
 NeoBundle 'scrooloose/nerdtree'
 NeoBundle 'scrooloose/syntastic'
 NeoBundle 'slim-template/vim-slim'
 NeoBundle 'szw/vim-tags'
-NeoBundle 'taichouchou2/alpaca_complete', {
-      \ 'depends' : [ 'tpope/vim-rails', 'Shougo/neocomplcache'],
-      \ 'build' : {
-      \     'mac' : 'gem install alpaca_complete',
-      \     'unix' : 'gem install alpaca_complete',
-      \}}
-NeoBundle 'taichouchou2/html5.vim'
-NeoBundle 'taichouchou2/vim-javascript'
 NeoBundle 'tell-k/vim-browsereload-mac'
 NeoBundle 'thinca/vim-quickrun'
 NeoBundle 'thinca/vim-ref'
-"NeoBundle 'thoughtbot/vim-rspec'
 NeoBundle 'tpope/vim-fugitive'
-"NeoBundle 'tpope/vim-haml'
 NeoBundle 'tpope/vim-rails'
-"NeoBundle 'tpope/vim-dispatch'
 NeoBundle 'tyru/open-browser.vim'
 NeoBundle 'ujihisa/unite-colorscheme'
 NeoBundle 'ujihisa/unite-font'
 NeoBundle 'vim-ruby/vim-ruby'
+NeoBundleLazy 'alpaca-tc/alpaca_rails_support', {
+      \ 'depends' : ['Shougo/neocomplete.vim', 'tpope/vim-rails', 'Shougo/vimproc', 'Shougo/unite.vim'],
+      \ 'autoload': {
+      \   'insert' : 1,
+      \   'unite_sources' : 'rails_support/locales',
+      \   'commands' : [
+      \     'RSCreateRoutesCache', 'RSCleanCache',
+      \     'RSShowLocale', 'RSCreateLocaleCache',
+      \   ]
+      \ }}
 " vim-scripts repos
 NeoBundle 'L9'
 NeoBundle 'FuzzyFinder'
@@ -181,81 +183,106 @@ filetype plugin indent on     " Required!
 NeoBundleCheck
 "}}}
 
-"NeoComplecache
+"neocomplete
 "{{{
-"set able AutoComplPop. Comment out this line if AutoComplPop is not installed.
+"Note: This option must set it in .vimrc(_vimrc).  NOT IN .gvimrc(_gvimrc)!
+" Disable AutoComplPop.
 let g:acp_enableAtStartup = 0
-" Launches neocomplcache automatically on vim startup.
-let g:neocomplcache_enable_at_startup = 1
+" Use neocomplete.
+let g:neocomplete#enable_at_startup = 1
 " Use smartcase.
-let g:neocomplcache_enable_smart_case = 1
-" Use camel case completion.
-let g:neocomplcache_enable_camel_case_completion = 1
-" Use underscore completion.
-let g:neocomplcache_enable_underbar_completion = 1
-" Sets minimum char length of syntax keyword.
-let g:neocomplcache_min_syntax_length = 3
-" buffer file name pattern tvat locks neocomplcache. e.g. ku.vim or fuzzyfinder
-let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-" Rails filetype setting
-autocmd BufEnter * if exists("b:rails_root") | NeoComplCacheSetFileType ruby.rails | endif
-autocmd BufEnter * if (expand("%") =~ "\.html\.erb$") | NeoComplCacheSetFileType ruby.eruby.rails.html | endif
-autocmd BufEnter * if (expand("%") =~ "\.text\.erb$") | NeoComplCacheSetFileType ruby.eruby.rails.html | endif
-"autocmd BufEnter * if (expand("%") =~ "\.(scss|sass|css)$") | NeoComplCacheSetFileType css.scss | endif
-autocmd BufEnter * if (expand("%") =~ "_spec\.rb$") || (expand("%") =~ "^spec.*\.rb$") | NeoComplCacheSetFileType ruby.rspec | endif
-" Define file-type dependent dictionaries.
-let g:neocomplcache_dictionary_filetype_lists = {
+let g:neocomplete#enable_smart_case = 1
+" Set minimum syntax keyword length.
+let g:neocomplete#sources#syntax#min_keyword_length = 3
+let g:neocomplete#lock_buffer_name_pattern = '\*ku\*'
+
+" Define dictionary.
+let g:neocomplete#sources#dictionary#dictionaries = {
   \ 'default' : '',
-  \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
+  \ 'coffee' : $HOME.'/.vim/dict/coffee.dict',
   \ 'eruby' : $HOME.'/.vim/dict/eruby.dict',
+  \ 'javascript' : $HOME.'/.vim/dict/javascript.dict',
   \ 'rails' : $HOME.'/.vim/dict/rails.dict',
+  \ 'ruby' : $HOME.'/.vim/dict/ruby.dict',
+  \ 'sass' : $HOME.'/.vim/dict/sass.dict',
   \ 'scss' : $HOME.'/.vim/dict/scss.dict',
-  \ 'vimshell' : $HOME.'/.vimshell_hist',
-\ }
+  \ 'vimshell' : $HOME.'/.vimshell_hist'
+  \ }
 
-" Define keyword, for minor languages
-if !exists('g:neocomplcache_keyword_patterns')
-  let g:neocomplcache_keyword_patterns = {}
+" Define keyword.
+if !exists('g:neocomplete#keyword_patterns')
+    let g:neocomplete#keyword_patterns = {}
 endif
-let g:neocomplcache_ke_auto_select = 1
+let g:neocomplete#keyword_patterns['default'] = '\h\w*'
 
-" Shell like behavior(not recommended).
-"set completeopt+=longest
-"let g:neocomplcache_enable_auto_select = 1
-"let g:neocomplcache_disable_auto_complete = 1
-"inoremap <expr><TAB>  pumvisible() ? "\<Down>" : "\<TAB>"
-"inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+" Plugin key-mappings.
+inoremap <expr><C-g>     neocomplete#undo_completion()
+inoremap <expr><C-l>     neocomplete#complete_common_string()
 
-" Enable omni completion. Not required if they are already set elsewhere in .vimrc
+" Recommended key-mappings.
+" <CR>: close popup and save indent.
+inoremap <silent> <CR> <C-r>=<SID>my_cr_function()<CR>
+function! s:my_cr_function()
+  return neocomplete#close_popup() . "\<CR>"
+  " For no inserting <CR> key.
+  "return pumvisible() ? neocomplete#close_popup() : "\<CR>"
+endfunction
+" <TAB>: completion.
+inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+" <C-h>, <BS>: close popup and delete backword char.
+inoremap <expr><C-h> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><BS> neocomplete#smart_close_popup()."\<C-h>"
+inoremap <expr><C-y>  neocomplete#close_popup()
+inoremap <expr><C-e>  neocomplete#cancel_popup()
+" Close popup by <Space>.
+"inoremap <expr><Space> pumvisible() ? neocomplete#close_popup() : "\<Space>"
+
+" For cursor moving in insert mode(Not recommended)
+"inoremap <expr><Left>  neocomplete#close_popup() . "\<Left>"
+"inoremap <expr><Right> neocomplete#close_popup() . "\<Right>"
+"inoremap <expr><Up>    neocomplete#close_popup() . "\<Up>"
+"inoremap <expr><Down>  neocomplete#close_popup() . "\<Down>"
+" Or set this.
+let g:neocomplete#enable_cursor_hold_i = 1
+" Or set this.
+"let g:neocomplete#enable_insert_char_pre = 1
+
+" Enable omni completion.
 autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-" Enable heavy omni completion, which require computational power and may stall the vim.
-if !exists('g:neocomplcache_omni_patterns')
-  let g:neocomplcache_omni_patterns = {}
+"autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+
+" Enable heavy omni completion.
+if !exists('g:neocomplete#sources#omni#input_patterns')
+  let g:neocomplete#sources#omni#input_patterns = {}
 endif
-let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-let g:neocomplcache_omni_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\|[@!]'
-" }}}
+let g:neocomplete#sources#omni#input_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+let g:neocomplete#sources#omni#input_patterns.scss = '^\s\+\w\+\|\w\+[):;]\?\s\+\|[@!]'
+"}}}
 
 "NeoSnipet
 "{{{
 " Plugin key-mappings.
 imap <C-k>     <Plug>(neosnippet_expand_or_jump)
 smap <C-k>     <Plug>(neosnippet_expand_or_jump)
+xmap <C-k>     <Plug>(neosnippet_expand_target)
 
 " SuperTab like snippets behavior.
-imap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-smap <expr><TAB> neosnippet#expandable_or_jumpable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+imap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+smap <expr><TAB> neosnippet#expandable_or_jumpable() ?  "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
 
 " For snippet_complete marker.
 if has('conceal')
   set conceallevel=2 concealcursor=i
 endif
+"}}}
 
-" Tell Neosnippet about the other snippets
-let g:neosnippet#snippets_directory='~/.vim/snippets'
+"AlpacaRailsSupport
+"{{{
+" `:RSCreateRoutesCache`
+" inoremap <expr><C-X><C-R> neocomplete#start_manual_complete('rails/url_helper')
 "}}}
 
 "NERDTree
@@ -331,8 +358,6 @@ nmap <Space>bf :FirefoxReloadStart<CR>
 nmap <Space>bF :FirefoxReloadStop<CR>
 nmap <Space>bs :SafariReloadStart<CR>
 nmap <Space>bS :SafariReloadStop<CR>
-nmap <Space>bo :OperaReloadStart<CR>
-nmap <Space>bO :OperaReloadStop<CR>
 nmap <Space>ba :AllBrowserReloadStart<CR>
 nmap <Space>bA :AllBrowserReloadStop<CR>
 "}}}
@@ -341,7 +366,7 @@ nmap <Space>bA :AllBrowserReloadStop<CR>
 "{{{
 let g:user_zen_settings={
   \'lang' : 'ja',
-  \'indentation' : "\t",
+  \'indentation' : "\s",
   \}
 "}}}
 
@@ -382,3 +407,4 @@ nnoremap <F9> :Unite rails/route<CR>
 let g:vim_tags_project_tags_command = "/usr/local/bin/ctags -R {OPTIONS} {DIRECTORY} 2>/dev/null"
 let g:vim_tags_gems_tags_command = "/usr/local/bin/ctags -R {OPTIONS} `bundle show --paths` 2>/dev/null"
 "}}}
+
