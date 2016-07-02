@@ -1,0 +1,40 @@
+[user]
+  name = rentalname
+  email = agenda21st@gmail.com
+[github]
+  user = rentalname
+  email = agenda21st@gmail.com
+[core]
+  editor = vim
+  excludesfile = /Users/hash/.gitignore_global
+  attributesfile = ~/.gitattributes_global
+[commit]
+  cleanup = scissors
+[interactive]
+  difffilter = diff-highlight
+[pager]
+  log = diff-highlight | less
+  show = diff-highlight | less
+  diff = diff-highlight | less
+[difftool "sourcetree"]
+  cmd = /usr/local/Caskroom/p4merge/2014.3-1007540/p4merge.app/Contents/MacOS/p4merge \"$LOCAL\" \"$REMOTE\"
+  path = 
+[mergetool "sourcetree"]
+  cmd = /usr/local/Caskroom/p4merge/2014.3-1007540/p4merge.app/Contents/MacOS/p4merge \"$BASE\" \"$LOCAL\" \"$REMOTE\" \"$MERGED\"
+  trustExitCode = true
+[push]
+  default = simple
+[alias]
+  pco = "!f() { git branch --all | cut -b 3- | peco; }; git checkout `f`"
+  wip = commit --allow-empty --cleanup=scissors
+  cancel = !git commit -a -m 'Temporary commit for cancel' && git reset --hard HEAD~
+  mdiff = !git diff $(git log --merges -1 --format=%H) @
+[include]
+  path = .gitconfig.local
+[diff]
+  tool = p4merge
+  compactionHeuristic = true
+[merge]
+  tool = p4merge
+[credential]
+  helper = -l
